@@ -5,12 +5,13 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { UserService } from '../../core/services/UserService/user.service';
+import { UserService } from '../../../core/services/UserService/user.service';
 import { Router, RouterLink } from '@angular/router';
-import { LoaderComponent } from '../../shared/components/loader/loader.component';
-import { UserLoginDto } from '../../core/models/Interfaces/User/userLoginDto.model';
-import { AppResponse } from '../../core/models/Interfaces/AppResponse.model';
-import { CreateUserDto } from '../../core/models/Interfaces/User/CreateUserDto.model';
+import { LoaderComponent } from '../../../shared/components/loader/loader.component';
+import { UserLoginDto } from '../../../core/models/Interfaces/User/userLoginDto.model';
+import { AppResponse } from '../../../core/models/Interfaces/AppResponse.model';
+import { CreateUserDto } from '../../../core/models/Interfaces/User/CreateUserDto.model';
+import { UserLoginResponseDto } from '../../../core/models/Interfaces/User/UserLoginResponseDto.model';
 
 @Component({
   selector: 'app-login',
@@ -53,14 +54,18 @@ export class LoginComponent {
     };
 
     this.userService.loginUser$(payload).subscribe({
-      next: (res: AppResponse<CreateUserDto>) => {
+      next: (res: AppResponse<UserLoginResponseDto>) => {
         if (!res.isSuccess) {
           console.log('Unble to Login : ', res.message);
-
           return;
         }
 
-        console.log('Login Successfully : ', res);
+        localStorage.setItem('accessToken', res.data.accessToken);
+        localStorage.setItem('email', res.data.email);
+        localStorage.setItem('role', res.data.role);
+
+        this.resetUserForm();
+        this.router.navigateByUrl('/org/Home');
       },
       error: (err) => {
         console.log('Error to LoginIn : ', err);

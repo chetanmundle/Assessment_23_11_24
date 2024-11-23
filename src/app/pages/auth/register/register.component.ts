@@ -7,12 +7,12 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { LoaderComponent } from '../../shared/components/loader/loader.component';
+import { LoaderComponent } from '../../../shared/components/loader/loader.component';
 import { MustMatch } from './CustomeValidation/MustMatch';
-import { CreateUserDto } from '../../core/models/Interfaces/User/CreateUserDto.model';
-import { UserService } from '../../core/services/UserService/user.service';
-import { AppResponse } from '../../core/models/Interfaces/AppResponse.model';
-import { UserDto } from '../../core/models/Interfaces/User/UserDto.model';
+import { CreateUserDto } from '../../../core/models/Interfaces/User/CreateUserDto.model';
+import { UserService } from '../../../core/services/UserService/user.service';
+import { AppResponse } from '../../../core/models/Interfaces/AppResponse.model';
+import { UserDto } from '../../../core/models/Interfaces/User/UserDto.model';
 
 @Component({
   selector: 'app-register',

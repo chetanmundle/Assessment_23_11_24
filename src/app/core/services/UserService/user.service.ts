@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { AppResponse } from '../../models/Interfaces/AppResponse.model';
 import { UserDto } from '../../models/Interfaces/User/UserDto.model';
 import { UserLoginDto } from '../../models/Interfaces/User/userLoginDto.model';
+import { UserLoginResponseDto } from '../../models/Interfaces/User/UserLoginResponseDto.model';
 
 @Injectable({
   providedIn: 'root',
@@ -18,8 +19,10 @@ export class UserService {
     return this.http.post<AppResponse<UserDto>>(`${this.Url}/CreateUser`, user);
   }
 
-  loginUser$(userDto: UserLoginDto): Observable<AppResponse<CreateUserDto>> {
-    return this.http.post<AppResponse<CreateUserDto>>(
+  loginUser$(
+    userDto: UserLoginDto
+  ): Observable<AppResponse<UserLoginResponseDto>> {
+    return this.http.post<AppResponse<UserLoginResponseDto>>(
       `${this.Url}/LoginUser`,
       userDto
     );
