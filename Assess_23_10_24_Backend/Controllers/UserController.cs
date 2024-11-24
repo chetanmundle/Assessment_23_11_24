@@ -1,5 +1,6 @@
 ﻿using App.Common.Models;
 using App.Core.App.User.Command;
+using App.Core.Interface;
 using App.Core.Models.User;
 using App.Core.Validations.User;
 using Domain.Entities;
@@ -7,7 +8,9 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Assess_23_10_24_Backend.Controllers
@@ -17,12 +20,15 @@ namespace Assess_23_10_24_Backend.Controllers
     public class UserController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly IUserRepository _userRepos;
 
-        public UserController(IMediator mediator)
+        public UserController(IMediator mediator,IUserRepository userRepos)
         {
             _mediator = mediator;   
+            _userRepos = userRepos;
         }
 
+        // Api for Register or Create the New User
         [HttpPost("[action]")]
         public async Task<ActionResult<AppResponse<UserDto>>> CreateUser(CreateUserDto user)
         {
@@ -45,6 +51,7 @@ namespace Assess_23_10_24_Backend.Controllers
             return Ok(result);
         }
 
+        // Api for Login the Users
         [HttpPost("[action]")]
         public async Task<ActionResult<AppResponse<UserLoginResponseDto>>> LoginUser(UserLoginDto login)
         {
@@ -67,11 +74,69 @@ namespace Assess_23_10_24_Backend.Controllers
 
         }
 
+        // Api for getting all the Users
         [HttpGet("[action]")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> admin()
+        public async Task<ActionResult<IEnumerable<UserWithoutPassDto>>> GetAllUser()
         {
-            return Ok("Admin");
+            var users = await _userRepos.GetAllUserAsync();
+
+            var appResponse = new AppResponse<IEnumerable<UserWithoutPassDto>>
+            {
+                IsSuccess = true,
+                StatusCode = 200,
+                Message = "Data fetch Successfully",
+                Data = users
+            };
+
+            return Ok(appResponse);
+          
         }
+
+        // Api for Delete on Employee
+        [HttpDelete("[action]/{userId}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> DeleteUserById(int userId)
+        {
+           var isDelete = await _userRepos.DeleteUserByIdAsync(userId);
+            if (isDelete) return Ok(new AppResponse
+            {
+                IsSuccess = true,
+                Message = "Deleted Successfully",
+                StatusCode = 200
+            });
+
+            return StatusCode(500, new AppResponse
+            {
+                IsSuccess = false,
+                Message = "Deletion failed due to an internal error.",
+                StatusCode = 500
+            });
+        }
+
+
+        // Api for Update user
+        [HttpPut("[action]")]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<UserWithoutPassDto>> UpdateUser(UpdateUserDto userDto)
+        {
+            var validator = new UpdateUserDtoValidator();
+            var validate = validator.Validate(userDto);
+            if (!validate.IsValid)
+            {
+                var errorMessage = validate.Errors[0].ErrorMessage;
+                return BadRequest(new AppResponse
+                {
+                    IsSuccess = false,
+                    StatusCode = 404,
+                    Message = errorMessage
+                });
+            }
+
+            var result = await _mediator.Send(new UpdateUserCommand { UserDto = userDto });
+            return Ok(result);
+        }
+
+
     }
 }

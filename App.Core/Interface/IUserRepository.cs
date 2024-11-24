@@ -11,5 +11,9 @@ namespace App.Core.Interface
     public interface IUserRepository
     {
         Task<User> GetUserByEmailAndPasswordAsync(UserLoginDto loginDto);
+
+        Task<IEnumerable<UserWithoutPassDto>> GetAllUserAsync();
+
+        Task<bool> DeleteUserByIdAsync(int UserId);
     }
 }

@@ -45,6 +45,7 @@ namespace App.Core.App.User.Command
             var user = userModel.Adapt<Domain.Entities.User>();
             user.Email = user.Email.ToLower();  
             user.Password = _encryptionService.EncryptData(user.Password);
+            user.IsDeleted = false;
 
             await _appDbContext.Set<Domain.Entities.User>()
                                .AddAsync(user, cancellationToken);
