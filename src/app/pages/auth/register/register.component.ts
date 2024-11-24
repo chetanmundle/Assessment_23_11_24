@@ -90,6 +90,7 @@ export class RegisterComponent {
           console.log('Data saved Successfully', res);
           this.resetUserForm();
           this.router.navigateByUrl('/auth/Login');
+          return;
         }
         console.log('Unble to Register : ', res.message);
       },

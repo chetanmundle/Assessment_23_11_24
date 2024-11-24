@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnDestroy } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -12,6 +12,7 @@ import { UserLoginDto } from '../../../core/models/Interfaces/User/userLoginDto.
 import { AppResponse } from '../../../core/models/Interfaces/AppResponse.model';
 import { CreateUserDto } from '../../../core/models/Interfaces/User/CreateUserDto.model';
 import { UserLoginResponseDto } from '../../../core/models/Interfaces/User/UserLoginResponseDto.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -20,8 +21,9 @@ import { UserLoginResponseDto } from '../../../core/models/Interfaces/User/UserL
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
-export class LoginComponent {
+export class LoginComponent implements OnDestroy {
   loginUserForm: FormGroup;
+  subscriptions?: Subscription;
 
   private userService = inject(UserService);
   private router = inject(Router);
@@ -35,6 +37,9 @@ export class LoginComponent {
       password: ['', [Validators.required]],
       role: ['', [Validators.required]],
     });
+  }
+  ngOnDestroy(): void {
+    this.subscriptions?.unsubscribe();
   }
 
   resetUserForm() {
@@ -53,25 +58,26 @@ export class LoginComponent {
       role: this.loginUserForm.get('role')?.value,
     };
 
-    this.userService.loginUser$(payload).subscribe({
+    this.subscriptions = this.userService.loginUser$(payload).subscribe({
       next: (res: AppResponse<UserLoginResponseDto>) => {
         if (!res.isSuccess) {
           console.log('Unble to Login : ', res.message);
+          this.isLoader = false;
           return;
         }
 
         localStorage.setItem('accessToken', res.data.accessToken);
-        localStorage.setItem('email', res.data.email);
-        localStorage.setItem('role', res.data.role);
 
         this.resetUserForm();
         this.router.navigateByUrl('/org/Home');
+        this.isLoader = false;
       },
       error: (err) => {
         console.log('Error to LoginIn : ', err);
+        this.isLoader = false;
       },
     });
 
-    this.isLoader = false;
+    // this.isLoader = false;
   }
 }

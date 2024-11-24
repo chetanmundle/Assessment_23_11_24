@@ -1,8 +1,6 @@
-export interface UserDto {
+export interface updateUserDto {
   userId: number;
   name: string;
   email: string;
-  password: string;
   role: string;
-  isDeleted: boolean;
 }

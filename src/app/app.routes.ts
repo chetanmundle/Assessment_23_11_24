@@ -8,6 +8,7 @@ import { ProfileComponent } from './pages/org/profile/profile.component';
 import { UsersComponent } from './pages/org/users/users.component';
 import { authGuard } from './core/Guards/auth.guard';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { ChatComponent } from './pages/org/chat/chat.component';
 export const routes: Routes = [
   {
     path: '',
@@ -55,11 +56,17 @@ export const routes: Routes = [
         canActivate: [authGuard],
         data: { roles: ['Admin'] }, // Only Admin can access
       },
+      {
+        path: 'Chat',
+        component: ChatComponent,
+        title: 'Chat Page',
+        canActivate: [authGuard],
+        data: { roles: ['Admin', 'Provider'] },
+      },
     ],
   },
   {
     path: '**',
-    component:PageNotFoundComponent,
-    
-  }
+    component: PageNotFoundComponent,
+  },
 ];
