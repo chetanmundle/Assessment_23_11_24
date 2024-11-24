@@ -118,7 +118,7 @@ namespace Assess_23_10_24_Backend.Controllers
         // Api for Update user
         [HttpPut("[action]")]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult<UserWithoutPassDto>> UpdateUser(UpdateUserDto userDto)
+        public async Task<ActionResult<AppResponse<UserWithoutPassDto>>> UpdateUser(UpdateUserDto userDto)
         {
             var validator = new UpdateUserDtoValidator();
             var validate = validator.Validate(userDto);
@@ -135,6 +135,28 @@ namespace Assess_23_10_24_Backend.Controllers
 
             var result = await _mediator.Send(new UpdateUserCommand { UserDto = userDto });
             return Ok(result);
+        }
+
+        // get user by id
+        [HttpGet("[action]/{userId}")]
+        public async Task<ActionResult<AppResponse<UserWithoutPassDto>>> GetUserById(int userId)
+        {
+            var user = await _userRepos.GetUserByIdAsync(userId);
+
+            if(user is null) return new AppResponse<UserWithoutPassDto>()
+            {
+                IsSuccess = false,
+                Message = "User Not Found",
+                StatusCode = 404
+            };
+
+            return new AppResponse<UserWithoutPassDto>()
+            {
+                IsSuccess = true,
+                Message = "User Get Successfully",
+                StatusCode = 200,
+                Data = user
+            };
         }
 
 

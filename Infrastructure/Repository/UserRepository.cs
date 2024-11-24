@@ -64,5 +64,17 @@ namespace Infrastructure.Repository
             return false;
         }
 
+        // Get user By UserID
+        public async Task<UserWithoutPassDto> GetUserByIdAsync(int UserId)
+        {
+            var query = @"Select * 
+                         from   Users
+                         Where  UserId = @UserId";
+
+            var conn = _appDbContext.GetConnection();
+            var user = await conn.QueryFirstOrDefaultAsync<User>(query, new { UserId = UserId});
+            return user.Adapt<UserWithoutPassDto>();
+                         
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿
-using App.Core.App.Employee.Command;
+
+using App.Core.App.User.Command;
 using Microsoft.Extensions.DependencyInjection;
 
 
@@ -11,7 +12,7 @@ namespace App.Core
         {
             services.AddMediatR(mfg =>
             {
-                mfg.RegisterServicesFromAssemblyContaining<CreateEmpCommand>();
+                mfg.RegisterServicesFromAssemblyContaining<CreateUserCommand>();
             });
 
             return services;

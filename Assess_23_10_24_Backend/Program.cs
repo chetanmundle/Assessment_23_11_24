@@ -1,5 +1,6 @@
 
 using App.Core;
+using Assess_23_10_24_Backend.Hubs;
 using Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -31,6 +32,23 @@ namespace Assess_23_10_24_Backend
             {
                 options.Filters.Add<AppExceptionFilterAttribute>();
             });
+
+            // Add SignalR services
+            builder.Services.AddSignalR();
+
+            // Add CORS policy
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowLocalhost", policy =>
+                {
+                    policy.WithOrigins("http://localhost:4200") // Allow frontend origin
+                          .AllowAnyHeader()                   // Allow any headers
+                          .AllowAnyMethod()                   // Allow any HTTP methods
+                          .AllowCredentials();                // Allow credentials
+                });
+            });
+
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             //builder.Services.AddSwaggerGen();
@@ -89,6 +107,9 @@ namespace Assess_23_10_24_Backend
 
             var app = builder.Build();
 
+            // Enable CORS before routing
+            app.UseCors("AllowLocalhost");
+
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
@@ -97,12 +118,12 @@ namespace Assess_23_10_24_Backend
             }
 
             // for Cors error 
-            {
-                app.UseCors(x => x
-               .AllowAnyOrigin()
-               .AllowAnyMethod()
-               .AllowAnyHeader());
-            }
+            //{
+            //    app.UseCors(x => x
+            //   .AllowAnyOrigin()
+            //   .AllowAnyMethod()
+            //   .AllowAnyHeader());
+            //}
 
             app.UseHttpsRedirection();
 
@@ -113,6 +134,15 @@ namespace Assess_23_10_24_Backend
 
 
             app.MapControllers();
+
+            app.MapHub<ChatHub>("/chathub");
+            // Map SignalR hubs
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapHub<ChatHub>("/chatHub");
+            //    endpoints.MapControllers();
+            //});
+
 
             app.Run();
         }

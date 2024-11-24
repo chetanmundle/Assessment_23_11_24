@@ -42,7 +42,7 @@ namespace App.Core.App.User.Command
                 {
                     IsSuccess = false,
                     StatusCode = 404,
-                    Message = "Invalid User Email",
+                    Message = "Invalid User Email Or Role",
                 };
             }
 

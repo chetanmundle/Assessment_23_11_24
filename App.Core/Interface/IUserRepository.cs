@@ -15,5 +15,7 @@ namespace App.Core.Interface
         Task<IEnumerable<UserWithoutPassDto>> GetAllUserAsync();
 
         Task<bool> DeleteUserByIdAsync(int UserId);
+
+        Task<UserWithoutPassDto> GetUserByIdAsync(int UserId);
     }
 }
