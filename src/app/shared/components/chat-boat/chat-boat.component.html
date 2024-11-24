@@ -1,0 +1,55 @@
+<div class="container chat-container">
+  <div class="card chat-card">
+    <div class="card-header chat-header">
+      <h5 class="mb-0">Group Chat</h5>
+    </div>
+    <div class="card-body chat-body">
+      <!-- Messages Section -->
+      <div
+        #messagesContainer
+        class="messages overflow-auto"
+      >
+        <div
+          *ngFor="let message of messages"
+          class="message-row"
+          [ngClass]="{
+            sent: message.isMe,
+            received: !message.isMe
+          }"
+        >
+          <div class="message-content">
+            <span *ngIf="!message.isMe" class="user-name">{{
+              message.user
+            }}</span>
+            <span class="message-text">{{ message.text }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sendmessage div -->
+      <div class="send-message-div">
+        <form
+          [formGroup]="chatForm"
+          (ngSubmit)="sendMessage()"
+          class="message-form rounded-5"
+        >
+          <div class="input-group">
+            <input
+              type="text"
+              formControlName="message"
+              class="form-control message-input"
+              placeholder="Type your message . . ."
+            />
+            <button
+              type="submit"
+              class="btn btn-primary send-button"
+              [disabled]="chatForm.invalid"
+            >
+              <i class="fas fa-paper-plane"></i>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

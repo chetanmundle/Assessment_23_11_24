@@ -7,6 +7,7 @@ import { UserWithoutPassDto } from '../../models/classes/UserWithoutPassDto';
   providedIn: 'root',
 })
 export class RoleServiceService {
+  // Subject behav....
   loggedUser$: BehaviorSubject<UserWithoutPassDto> =
     new BehaviorSubject<UserWithoutPassDto>(this.getLoggedUser());
 
@@ -24,5 +25,10 @@ export class RoleServiceService {
       return userWithoutPass;
     }
     return new UserWithoutPassDto();
+  }
+
+  public resetLoggedUser(): void {
+    const newLoggedUser = this.getLoggedUser();
+    this.loggedUser$.next(newLoggedUser);
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, inject, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { UserService } from '../../../core/services/UserService/user.service';
 import { AppResponse } from '../../../core/models/Interfaces/AppResponse.model';
@@ -11,6 +11,7 @@ import {
 } from '@angular/forms';
 import { updateUserDto } from '../../../core/models/Interfaces/User/UpdateUsetDto';
 import { LoaderComponent } from '../../../shared/components/loader/loader.component';
+import { MyToastServiceService } from '../../../core/services/MyToastService/my-toast-service.service';
 
 @Component({
   selector: 'app-users',
@@ -24,6 +25,8 @@ export class UsersComponent implements OnDestroy {
   private subscriptions: Subscription = new Subscription();
   userList: UserWithoutPassDto[] = [];
   userUpdateForm: FormGroup;
+
+  private tostr = inject(MyToastServiceService);
 
   constructor(
     private userService: UserService,
@@ -75,14 +78,17 @@ export class UsersComponent implements OnDestroy {
     const sub = this.userService.deleteUser$(userId).subscribe({
       next: (res: AppResponse<any>) => {
         if (res.isSuccess) {
-          alert('User Deleted Successfully');
+          // alert('User Deleted Successfully');
           this.getAllUsers();
+          this.tostr.showSuccess('User Deleted Successfully');
           return;
         }
         console.log('Unable to delte the user', res);
+        this.tostr.showError(res.message);
       },
       error: (err) => {
         console.error('Error to delete the user', err);
+        this.tostr.showError(err.message);
       },
     });
 
@@ -109,16 +115,18 @@ export class UsersComponent implements OnDestroy {
       next: (res: AppResponse<UserWithoutPassDto>) => {
         if (res.isSuccess) {
           this.getAllUsers();
-          alert('User Updated Successfully');
           this.isLoader = false;
+          this.tostr.showSuccess('User Updated Successfully');
           return;
         }
         this.isLoader = false;
         console.log('Unable to Update the User ', res.message);
+        this.tostr.showError(res.message);
       },
       error: (err) => {
         this.isLoader = false;
         console.error('Error to update the user', err);
+        this.tostr.showError(err.message);
       },
     });
 

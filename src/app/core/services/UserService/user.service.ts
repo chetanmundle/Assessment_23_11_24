@@ -55,4 +55,10 @@ export class UserService {
       user
     );
   }
+
+  getUserById$(userId: number): Observable<AppResponse<UserWithoutPassDto>> {
+    return this.http.get<AppResponse<UserWithoutPassDto>>(
+      `${this.Url}/GetUserById/${userId}`
+    );
+  }
 }

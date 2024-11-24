@@ -13,6 +13,8 @@ import { AppResponse } from '../../../core/models/Interfaces/AppResponse.model';
 import { CreateUserDto } from '../../../core/models/Interfaces/User/CreateUserDto.model';
 import { UserLoginResponseDto } from '../../../core/models/Interfaces/User/UserLoginResponseDto.model';
 import { Subscription } from 'rxjs';
+import { RoleServiceService } from '../../../core/services/RoleService/role-service.service';
+import { MyToastServiceService } from '../../../core/services/MyToastService/my-toast-service.service';
 
 @Component({
   selector: 'app-login',
@@ -27,7 +29,8 @@ export class LoginComponent implements OnDestroy {
 
   private userService = inject(UserService);
   private router = inject(Router);
-  // private tostr = inject(MyToastServiceService);
+  private roleService = inject(RoleServiceService);
+  private tostr = inject(MyToastServiceService);
 
   isLoader: boolean = false;
 
@@ -61,7 +64,8 @@ export class LoginComponent implements OnDestroy {
     this.subscriptions = this.userService.loginUser$(payload).subscribe({
       next: (res: AppResponse<UserLoginResponseDto>) => {
         if (!res.isSuccess) {
-          console.log('Unble to Login : ', res.message);
+          // console.log('Unble to Login : ', res.message);
+          this.tostr.showError(res.message);
           this.isLoader = false;
           return;
         }
@@ -69,11 +73,15 @@ export class LoginComponent implements OnDestroy {
         localStorage.setItem('accessToken', res.data.accessToken);
 
         this.resetUserForm();
+        // reset the Subject Behaviour
+        this.roleService.resetLoggedUser();
         this.router.navigateByUrl('/org/Home');
+        this.tostr.showSuccess(res.message);
         this.isLoader = false;
       },
       error: (err) => {
         console.log('Error to LoginIn : ', err);
+        this.tostr.showError(err.message);
         this.isLoader = false;
       },
     });

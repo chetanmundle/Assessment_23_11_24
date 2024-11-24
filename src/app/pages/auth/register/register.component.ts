@@ -13,6 +13,7 @@ import { CreateUserDto } from '../../../core/models/Interfaces/User/CreateUserDt
 import { UserService } from '../../../core/services/UserService/user.service';
 import { AppResponse } from '../../../core/models/Interfaces/AppResponse.model';
 import { UserDto } from '../../../core/models/Interfaces/User/UserDto.model';
+import { MyToastServiceService } from '../../../core/services/MyToastService/my-toast-service.service';
 
 @Component({
   selector: 'app-register',
@@ -30,7 +31,7 @@ export class RegisterComponent {
   //   private userService = inject(UserService);
   private router = inject(Router);
   private userService = inject(UserService);
-  //   private tostr = inject(MyToastServiceService);
+  private tostr = inject(MyToastServiceService);
 
   passwordStrength: string = '';
   isFocucedonPass: boolean = false;
@@ -89,13 +90,16 @@ export class RegisterComponent {
         if (res.isSuccess) {
           console.log('Data saved Successfully', res);
           this.resetUserForm();
+          this.tostr.showSuccess('User Registered Successfully');
           this.router.navigateByUrl('/auth/Login');
           return;
         }
         console.log('Unble to Register : ', res.message);
+        this.tostr.showError(res.message);
       },
       error: (err) => {
         alert('Unable to Register');
+        this.tostr.showError(err.message);
       },
     });
 

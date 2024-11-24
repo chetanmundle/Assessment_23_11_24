@@ -1,0 +1,113 @@
+.chat-container {
+  height: 90vh; /* Full height of the viewport */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.chat-card {
+  width: 100%;
+  max-width: 600px; /* Adjust as per your preference */
+  height: 90%; /* Full height of the container */
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-header {
+  background-color: #008069;
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+}
+
+.chat-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Ensure content doesn't overflow outside */
+}
+
+.messages {
+  flex: 1; /* Take up remaining space in the body */
+  overflow-y: auto; /* Enable vertical scrolling when content overflows */
+  padding: 10px;
+  background-color: #e5ddd5;
+}
+
+.send-message-div {
+  position: sticky; /* Ensures the form is fixed at the bottom of the scrollable area */
+  bottom: 0;
+  background: #fff;
+  border-top: 1px solid #ccc;
+  padding: 10px;
+}
+
+.message-row {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.message-row.sent {
+  justify-content: flex-end;
+}
+
+.message-row.received {
+  justify-content: flex-start;
+}
+
+.message-content {
+  max-width: 70%;
+  padding: 10px 15px;
+  border-radius: 20px;
+  font-size: 14px;
+  position: relative;
+}
+
+.message-row.sent .message-content {
+  background-color: #dcf8c6;
+  color: #000;
+  border-bottom-right-radius: 0;
+}
+
+.message-row.received .message-content {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  color: #000;
+  border-bottom-left-radius: 0;
+}
+
+.user-name {
+  font-size: 12px;
+  color: #555;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.message-form {
+  display: flex;
+  gap: 10px;
+}
+
+.message-input {
+  flex: 1; /* Ensures the input grows to fill available space */
+  padding: 10px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+}
+
+.send-button {
+  background-color: #008069;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.send-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
