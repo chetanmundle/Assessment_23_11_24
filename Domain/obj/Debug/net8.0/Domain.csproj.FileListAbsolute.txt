@@ -34,3 +34,15 @@ D:\Visual Studio\Asp.NetCore\Assessment_23_11_24\Assessment_23_11_24_Backend\Ass
 D:\Visual Studio\Asp.NetCore\Assessment_23_11_24\Assessment_23_11_24_Backend\Assessment_23_11_24\Domain\obj\Debug\net8.0\refint\Domain.dll
 D:\Visual Studio\Asp.NetCore\Assessment_23_11_24\Assessment_23_11_24_Backend\Assessment_23_11_24\Domain\obj\Debug\net8.0\Domain.pdb
 D:\Visual Studio\Asp.NetCore\Assessment_23_11_24\Assessment_23_11_24_Backend\Assessment_23_11_24\Domain\obj\Debug\net8.0\ref\Domain.dll
+D:\Assessment\Assessment_23_11_24\Assessment_24_11_24_Backend\Assessment_23_11_24\Domain\bin\Debug\net8.0\Domain.deps.json
+D:\Assessment\Assessment_23_11_24\Assessment_24_11_24_Backend\Assessment_23_11_24\Domain\bin\Debug\net8.0\Domain.dll
+D:\Assessment\Assessment_23_11_24\Assessment_24_11_24_Backend\Assessment_23_11_24\Domain\bin\Debug\net8.0\Domain.pdb
+D:\Assessment\Assessment_23_11_24\Assessment_24_11_24_Backend\Assessment_23_11_24\Domain\obj\Debug\net8.0\Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\Assessment\Assessment_23_11_24\Assessment_24_11_24_Backend\Assessment_23_11_24\Domain\obj\Debug\net8.0\Domain.AssemblyInfoInputs.cache
+D:\Assessment\Assessment_23_11_24\Assessment_24_11_24_Backend\Assessment_23_11_24\Domain\obj\Debug\net8.0\Domain.AssemblyInfo.cs
+D:\Assessment\Assessment_23_11_24\Assessment_24_11_24_Backend\Assessment_23_11_24\Domain\obj\Debug\net8.0\Domain.csproj.CoreCompileInputs.cache
+D:\Assessment\Assessment_23_11_24\Assessment_24_11_24_Backend\Assessment_23_11_24\Domain\obj\Debug\net8.0\Domain.sourcelink.json
+D:\Assessment\Assessment_23_11_24\Assessment_24_11_24_Backend\Assessment_23_11_24\Domain\obj\Debug\net8.0\Domain.dll
+D:\Assessment\Assessment_23_11_24\Assessment_24_11_24_Backend\Assessment_23_11_24\Domain\obj\Debug\net8.0\refint\Domain.dll
+D:\Assessment\Assessment_23_11_24\Assessment_24_11_24_Backend\Assessment_23_11_24\Domain\obj\Debug\net8.0\Domain.pdb
+D:\Assessment\Assessment_23_11_24\Assessment_24_11_24_Backend\Assessment_23_11_24\Domain\obj\Debug\net8.0\ref\Domain.dll

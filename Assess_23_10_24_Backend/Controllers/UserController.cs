@@ -1,5 +1,6 @@
 ﻿using App.Common.Models;
 using App.Core.App.User.Command;
+using App.Core.App.User.Query;
 using App.Core.Interface;
 using App.Core.Models.User;
 using App.Core.Validations.User;
@@ -117,7 +118,7 @@ namespace Assess_23_10_24_Backend.Controllers
 
         // Api for Update user
         [HttpPut("[action]")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Provider")] // I Give Provider because of Provider can update own data
         public async Task<ActionResult<AppResponse<UserWithoutPassDto>>> UpdateUser(UpdateUserDto userDto)
         {
             var validator = new UpdateUserDtoValidator();
@@ -157,6 +158,15 @@ namespace Assess_23_10_24_Backend.Controllers
                 StatusCode = 200,
                 Data = user
             };
+        }
+
+
+        [HttpGet("[action]/{id}")]
+        [Authorize(Roles = "Admin,Provider")]
+        public async Task<ActionResult<AppResponse<UserLoginResponseDto>>> GetRefreshToken(int id)
+        {
+            var result = await _mediator.Send(new GetRefreshtokenQuery { userId = id });
+            return Ok(result);
         }
 
 

@@ -4786,19 +4786,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\cheta\\.nuget\\packages\\": {}
+    "C:\\Users\\chetanmundle\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Visual Studio\\Asp.NetCore\\Assessment_23_11_24\\Assessment_23_11_24_Backend\\Assessment_23_11_24\\Assess_23_10_24_Backend\\Assess_23_10_24_Backend.csproj",
+      "projectUniqueName": "D:\\Assessment\\Assessment_23_11_24\\Assessment_24_11_24_Backend\\Assessment_23_11_24\\Assess_23_10_24_Backend\\Assess_23_10_24_Backend.csproj",
       "projectName": "Assess_23_10_24_Backend",
-      "projectPath": "D:\\Visual Studio\\Asp.NetCore\\Assessment_23_11_24\\Assessment_23_11_24_Backend\\Assessment_23_11_24\\Assess_23_10_24_Backend\\Assess_23_10_24_Backend.csproj",
-      "packagesPath": "C:\\Users\\cheta\\.nuget\\packages\\",
-      "outputPath": "D:\\Visual Studio\\Asp.NetCore\\Assessment_23_11_24\\Assessment_23_11_24_Backend\\Assessment_23_11_24\\Assess_23_10_24_Backend\\obj\\",
+      "projectPath": "D:\\Assessment\\Assessment_23_11_24\\Assessment_24_11_24_Backend\\Assessment_23_11_24\\Assess_23_10_24_Backend\\Assess_23_10_24_Backend.csproj",
+      "packagesPath": "C:\\Users\\chetanmundle\\.nuget\\packages\\",
+      "outputPath": "D:\\Assessment\\Assessment_23_11_24\\Assessment_24_11_24_Backend\\Assessment_23_11_24\\Assess_23_10_24_Backend\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\cheta\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\chetanmundle\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -4813,11 +4813,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "D:\\Visual Studio\\Asp.NetCore\\Assessment_23_11_24\\Assessment_23_11_24_Backend\\Assessment_23_11_24\\App.Core\\App.Core.csproj": {
-              "projectPath": "D:\\Visual Studio\\Asp.NetCore\\Assessment_23_11_24\\Assessment_23_11_24_Backend\\Assessment_23_11_24\\App.Core\\App.Core.csproj"
+            "D:\\Assessment\\Assessment_23_11_24\\Assessment_24_11_24_Backend\\Assessment_23_11_24\\App.Core\\App.Core.csproj": {
+              "projectPath": "D:\\Assessment\\Assessment_23_11_24\\Assessment_24_11_24_Backend\\Assessment_23_11_24\\App.Core\\App.Core.csproj"
             },
-            "D:\\Visual Studio\\Asp.NetCore\\Assessment_23_11_24\\Assessment_23_11_24_Backend\\Assessment_23_11_24\\Infrastructure\\Infrastructure.csproj": {
-              "projectPath": "D:\\Visual Studio\\Asp.NetCore\\Assessment_23_11_24\\Assessment_23_11_24_Backend\\Assessment_23_11_24\\Infrastructure\\Infrastructure.csproj"
+            "D:\\Assessment\\Assessment_23_11_24\\Assessment_24_11_24_Backend\\Assessment_23_11_24\\Infrastructure\\Infrastructure.csproj": {
+              "projectPath": "D:\\Assessment\\Assessment_23_11_24\\Assessment_24_11_24_Backend\\Assessment_23_11_24\\Infrastructure\\Infrastructure.csproj"
             }
           }
         }
@@ -4875,7 +4875,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
