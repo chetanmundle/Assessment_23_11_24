@@ -17,7 +17,6 @@ namespace App.Core.App.User.Command
     {
         public UserLoginDto LoginDto { get; set; }
     }
-
     internal class UserLoginCommandHandler : IRequestHandler<UserLoginCommand, AppResponse<UserLoginResponseDto>>
     {
         private readonly IJwtService _jwtService;
