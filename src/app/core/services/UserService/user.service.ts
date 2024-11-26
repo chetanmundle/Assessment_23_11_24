@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { CreateUserDto } from '../../models/Interfaces/User/CreateUserDto.model';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { AppResponse } from '../../models/Interfaces/AppResponse.model';
 import { UserDto } from '../../models/Interfaces/User/UserDto.model';
 import { UserLoginDto } from '../../models/Interfaces/User/userLoginDto.model';
@@ -16,6 +16,8 @@ export class UserService {
   private http = inject(HttpClient);
 
   private Url = 'https://localhost:7035/api/User';
+
+  searchSubject$: Subject<string> = new Subject<string>();
 
   // Service for register / create user
   registerUser$(user: CreateUserDto): Observable<AppResponse<UserDto>> {
@@ -33,9 +35,19 @@ export class UserService {
   }
 
   // Service for getting all users
-  getAllUsers$(): Observable<AppResponse<UserWithoutPassDto[]>> {
+  getAllUsers$(
+    searchWord: string
+  ): Observable<AppResponse<UserWithoutPassDto[]>> {
     return this.http.get<AppResponse<UserWithoutPassDto[]>>(
-      `${this.Url}/GetAllUser`
+      `${this.Url}/GetAllUser/${searchWord}`
+    );
+  }
+
+  getAllUsersWithDebouce$(
+    searchWord: string
+  ): Observable<AppResponse<UserWithoutPassDto[]>> {
+    return this.http.get<AppResponse<UserWithoutPassDto[]>>(
+      `${this.Url}/GetAllUser/${searchWord}`
     );
   }
 
@@ -56,6 +68,7 @@ export class UserService {
     );
   }
 
+  // Get One User By Id
   getUserById$(userId: number): Observable<AppResponse<UserWithoutPassDto>> {
     return this.http.get<AppResponse<UserWithoutPassDto>>(
       `${this.Url}/GetUserById/${userId}`

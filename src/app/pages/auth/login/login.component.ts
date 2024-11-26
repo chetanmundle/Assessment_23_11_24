@@ -15,17 +15,19 @@ import { UserLoginResponseDto } from '../../../core/models/Interfaces/User/UserL
 import { Subscription } from 'rxjs';
 import { RoleServiceService } from '../../../core/services/RoleService/role-service.service';
 import { MyToastServiceService } from '../../../core/services/MyToastService/my-toast-service.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink, LoaderComponent],
+  imports: [ReactiveFormsModule, RouterLink, LoaderComponent, CommonModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
 export class LoginComponent implements OnDestroy {
   loginUserForm: FormGroup;
   subscriptions?: Subscription;
+  showPassword: boolean = false;
 
   private userService = inject(UserService);
   private router = inject(Router);
@@ -87,5 +89,9 @@ export class LoginComponent implements OnDestroy {
     });
 
     // this.isLoader = false;
+  }
+
+  onClickShowPassword() {
+    this.showPassword = !this.showPassword;
   }
 }

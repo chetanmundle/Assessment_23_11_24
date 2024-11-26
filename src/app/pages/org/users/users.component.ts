@@ -1,30 +1,33 @@
-import { Component, inject, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { debounceTime, distinctUntilChanged, Subscription } from 'rxjs';
 import { UserService } from '../../../core/services/UserService/user.service';
 import { AppResponse } from '../../../core/models/Interfaces/AppResponse.model';
 import { UserWithoutPassDto } from '../../../core/models/classes/UserWithoutPassDto';
 import {
   FormBuilder,
   FormGroup,
+  FormsModule,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
 import { updateUserDto } from '../../../core/models/Interfaces/User/UpdateUsetDto';
 import { LoaderComponent } from '../../../shared/components/loader/loader.component';
 import { MyToastServiceService } from '../../../core/services/MyToastService/my-toast-service.service';
+import { Subject } from '@microsoft/signalr';
 
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [ReactiveFormsModule, LoaderComponent],
+  imports: [ReactiveFormsModule, LoaderComponent, FormsModule],
   templateUrl: './users.component.html',
   styleUrl: './users.component.css',
 })
-export class UsersComponent implements OnDestroy {
+export class UsersComponent implements OnDestroy, OnInit {
   isLoader: boolean = false;
   private subscriptions: Subscription = new Subscription();
   userList: UserWithoutPassDto[] = [];
   userUpdateForm: FormGroup;
+  searchWord: string = '';
 
   private tostr = inject(MyToastServiceService);
 
@@ -32,7 +35,7 @@ export class UsersComponent implements OnDestroy {
     private userService: UserService,
     private formBuilder: FormBuilder
   ) {
-    this.getAllUsers();
+    this.getAllUsers('');
 
     this.userUpdateForm = this.formBuilder.group({
       userId: [0, Validators.required],
@@ -41,9 +44,18 @@ export class UsersComponent implements OnDestroy {
       role: ['', [Validators.required]],
     });
   }
-  ngOnDestroy(): void {
-    // Unsubscribe from all subscriptions when the component is destroyed
-    this.subscriptions.unsubscribe();
+
+  // On init
+  ngOnInit(): void {
+
+    // Call when 5 second complete from type word
+    const sub = this.userService.searchSubject$
+      .pipe(debounceTime(500), distinctUntilChanged())
+      .subscribe((word: string) => {
+        this.getAllUsers(word);
+      });
+
+    this.subscriptions.add(sub);
   }
 
   // ResetForm
@@ -56,8 +68,8 @@ export class UsersComponent implements OnDestroy {
   }
 
   // get all users
-  getAllUsers() {
-    const sub = this.userService.getAllUsers$().subscribe({
+  getAllUsers(searchWord: string) {
+    const sub = this.userService.getAllUsers$(this.searchWord).subscribe({
       next: (res: AppResponse<UserWithoutPassDto[]>) => {
         this.userList = res.data;
         console.log(this.userList);
@@ -79,7 +91,7 @@ export class UsersComponent implements OnDestroy {
       next: (res: AppResponse<any>) => {
         if (res.isSuccess) {
           // alert('User Deleted Successfully');
-          this.getAllUsers();
+          this.getAllUsers(this.searchWord);
           this.tostr.showSuccess('User Deleted Successfully');
           return;
         }
@@ -95,6 +107,7 @@ export class UsersComponent implements OnDestroy {
     this.subscriptions.add(sub);
   }
 
+  // OnClick edit word
   onClickEdit(user: UserWithoutPassDto) {
     this.userUpdateForm.get('userId')?.setValue(user.userId);
     this.userUpdateForm.get('email')?.setValue(user.email);
@@ -114,7 +127,7 @@ export class UsersComponent implements OnDestroy {
     const sub = this.userService.updateUser$(payload).subscribe({
       next: (res: AppResponse<UserWithoutPassDto>) => {
         if (res.isSuccess) {
-          this.getAllUsers();
+          this.getAllUsers(this.searchWord);
           this.isLoader = false;
           this.tostr.showSuccess('User Updated Successfully');
           return;
@@ -131,5 +144,15 @@ export class UsersComponent implements OnDestroy {
     });
 
     this.subscriptions.add(sub);
+  }
+
+  // Fuction for on Change Search Word
+  onChangeSearchWordInput() {
+    this.userService.searchSubject$.next(this.searchWord);
+  }
+
+  ngOnDestroy(): void {
+    // Unsubscribe from all subscriptions when the component is destroyed
+    this.subscriptions.unsubscribe();
   }
 }
