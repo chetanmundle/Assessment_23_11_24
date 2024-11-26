@@ -76,11 +76,11 @@ namespace Assess_23_10_24_Backend.Controllers
         }
 
         // Api for getting all the Users
-        [HttpGet("[action]")]
+        [HttpGet("[action]/{searchWord?}")]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult<IEnumerable<UserWithoutPassDto>>> GetAllUser()
+        public async Task<ActionResult<IEnumerable<UserWithoutPassDto>>> GetAllUser(string searchWord = "")
         {
-            var users = await _userRepos.GetAllUserAsync();
+            var users = await _userRepos.GetAllUserAsync(searchWord);
 
             var appResponse = new AppResponse<IEnumerable<UserWithoutPassDto>>
             {

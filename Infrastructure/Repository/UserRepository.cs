@@ -24,13 +24,18 @@ namespace Infrastructure.Repository
 
 
         // Get all live User
-        public async Task<IEnumerable<UserWithoutPassDto>> GetAllUserAsync()
+        public async Task<IEnumerable<UserWithoutPassDto>> GetAllUserAsync(string word = "")
         {
-            var query = @"Select * from Users Where isDeleted = 0";
+            //var query = @"Select * from Users Where isDeleted = 0";
+            var query = @"Select * from Users where [Name] like @searchWord and isDeleted = 0";
 
             var conn = _appDbContext.GetConnection();
-            //var users = await conn.QueryAsync(query);
-            var users = await conn.QueryAsync<User>(query);
+
+            var search = new
+            {
+                searchWord = "%" + word + "%",
+            };
+            var users = await conn.QueryAsync<User>(query, search);
 
             return users.Adapt<IEnumerable<UserWithoutPassDto>>();
         }

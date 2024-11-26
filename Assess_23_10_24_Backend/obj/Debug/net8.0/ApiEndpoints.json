@@ -44,11 +44,17 @@
   {
     "ContainingType": "Assess_23_10_24_Backend.Controllers.UserController",
     "Method": "GetAllUser",
-    "RelativePath": "api/User/GetAllUser",
+    "RelativePath": "api/User/GetAllUser/{searchWord}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "searchWord",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": [
       {
         "Type": "System.Collections.Generic.IEnumerable\u00601[[App.Core.Models.User.UserWithoutPassDto, App.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",

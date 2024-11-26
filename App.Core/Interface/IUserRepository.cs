@@ -12,7 +12,7 @@ namespace App.Core.Interface
     {
         Task<User> GetUserByEmailAndPasswordAsync(UserLoginDto loginDto);
 
-        Task<IEnumerable<UserWithoutPassDto>> GetAllUserAsync();
+        Task<IEnumerable<UserWithoutPassDto>> GetAllUserAsync(string serachWord = "");
 
         Task<bool> DeleteUserByIdAsync(int UserId);
 
