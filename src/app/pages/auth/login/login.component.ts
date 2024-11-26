@@ -10,7 +10,6 @@ import { Router, RouterLink } from '@angular/router';
 import { LoaderComponent } from '../../../shared/components/loader/loader.component';
 import { UserLoginDto } from '../../../core/models/Interfaces/User/userLoginDto.model';
 import { AppResponse } from '../../../core/models/Interfaces/AppResponse.model';
-import { CreateUserDto } from '../../../core/models/Interfaces/User/CreateUserDto.model';
 import { UserLoginResponseDto } from '../../../core/models/Interfaces/User/UserLoginResponseDto.model';
 import { Subscription } from 'rxjs';
 import { RoleServiceService } from '../../../core/services/RoleService/role-service.service';
