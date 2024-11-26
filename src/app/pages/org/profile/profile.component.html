@@ -10,8 +10,8 @@
               class="rounded-circle img-fluid"
               style="width: 150px"
             />
-            <h5 class="my-3">{{loggedUser?.name}}</h5>
-            <p class="text-muted mb-1">{{loggedUser?.role}}</p>
+            <h5 class="my-3">{{ loggedUser?.name }}</h5>
+            <p class="text-muted mb-1">{{ loggedUser?.role }}</p>
             <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
             <div class="d-flex justify-content-center mb-2">
               <button
@@ -19,8 +19,11 @@
                 data-mdb-button-init
                 data-mdb-ripple-init
                 class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+                (click)="onClickEdit()"
               >
-                Follow
+                Edit
               </button>
               <button
                 type="button"
@@ -126,4 +129,87 @@
   @if (isLoader) {
   <app-loader class="loader-backdrop"></app-loader>
   }
+
+  <!-- Edit section -->
+
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form [formGroup]="userUpdateForm">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Update User</h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <!-- Name -->
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="name" class="form-label">Name</label>
+              <input
+                type="email"
+                class="form-control"
+                id="name"
+                formControlName="name"
+              />
+            </div>
+
+            <!-- Email  -->
+            <div class="mb-3">
+              <label for="email" class="form-label">Email address</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                formControlName="email"
+              />
+            </div>
+
+            <!-- Role -->
+            <div class="mb-3">
+              <label for="role" class="form-label">Role</label>
+              <select
+                class="form-select"
+                aria-label="Default select example"
+                id="role"
+                formControlName="role"
+              >
+                <option value="" disabled>Select Role</option>
+                <option value="Admin" disabled>Admin</option>
+                <option value="Provider" disabled>Provider</option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close</button
+            >`
+            <button
+              type="button"
+              class="btn btn-primary"
+              (click)="onClickSaveChanges()"
+              data-bs-dismiss="modal"
+            >
+              Save changes
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </section>

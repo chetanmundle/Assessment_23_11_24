@@ -1,0 +1,71 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+      <form [formGroup]="userUpdateForm">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Update User</h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+
+        <!-- Name -->
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input
+              type="email"
+              class="form-control"
+              id="name"
+              formControlName="name"
+            />
+          </div>
+
+          <!-- Email  -->
+          <div class="mb-3">
+            <label for="email" class="form-label">Email address</label>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              formControlName="email"
+            />
+          </div>
+
+          <!-- Role -->
+          <div class="mb-3">
+            <label for="role" class="form-label">Role</label>
+            <select
+              class="form-select"
+              aria-label="Default select example"
+              id="role"
+              formControlName="role"
+            >
+              <option value="" disabled>Select Role</option>
+              <option value="Admin">Admin</option>
+              <option value="Provider">Provider</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>`
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="onClickSaveChanges()"
+            data-bs-dismiss="modal"
+          >
+            Save changes
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>

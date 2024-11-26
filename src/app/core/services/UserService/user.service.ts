@@ -61,4 +61,13 @@ export class UserService {
       `${this.Url}/GetUserById/${userId}`
     );
   }
+
+  // get refresh token
+  getRefreshToken$(
+    userId: number
+  ): Observable<AppResponse<UserLoginResponseDto>> {
+    return this.http.get<AppResponse<UserLoginResponseDto>>(
+      `${this.Url}/GetRefreshToken/${userId}`
+    );
+  }
 }

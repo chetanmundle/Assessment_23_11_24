@@ -11,6 +11,7 @@ export class RoleServiceService {
   loggedUser$: BehaviorSubject<UserWithoutPassDto> =
     new BehaviorSubject<UserWithoutPassDto>(this.getLoggedUser());
 
+  // this fuction decode the token and set in BehaviorSubject
   private getLoggedUser(): UserWithoutPassDto {
     const accessToken = localStorage.getItem('accessToken');
 
@@ -27,6 +28,7 @@ export class RoleServiceService {
     return new UserWithoutPassDto();
   }
 
+  // This fuction is Used tp reset the Behaviour Subject whhen login is change at that senario or refresh token scenario
   public resetLoggedUser(): void {
     const newLoggedUser = this.getLoggedUser();
     this.loggedUser$.next(newLoggedUser);

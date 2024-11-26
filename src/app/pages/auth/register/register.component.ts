@@ -75,6 +75,7 @@ export class RegisterComponent {
     );
   }
 
+  // on click register for register the user
   onClickRegister() {
     this.isLoader = true;
 
@@ -92,18 +93,19 @@ export class RegisterComponent {
           this.resetUserForm();
           this.tostr.showSuccess('User Registered Successfully');
           this.router.navigateByUrl('/auth/Login');
+          this.isLoader = true;
           return;
         }
         console.log('Unble to Register : ', res.message);
         this.tostr.showError(res.message);
+        this.isLoader = true;
       },
       error: (err) => {
         alert('Unable to Register');
         this.tostr.showError(err.message);
+        this.isLoader = true;
       },
     });
-
-    this.isLoader = true;
   }
 
   PrintStrongNess(event: any) {
