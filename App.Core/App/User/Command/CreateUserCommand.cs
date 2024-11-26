@@ -39,7 +39,7 @@ namespace App.Core.App.User.Command
             {
                 StatusCode = 409,
                 IsSuccess = false,
-                Message = "User Alread Exist",
+                Message = "User Alread Exist"
             };
 
             var user = userModel.Adapt<Domain.Entities.User>();
