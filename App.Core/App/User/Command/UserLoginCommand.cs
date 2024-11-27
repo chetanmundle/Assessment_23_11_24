@@ -35,7 +35,7 @@ namespace App.Core.App.User.Command
 
             var user = await _userRepos.GetUserByEmailAndPasswordAsync(userLoginDto);
             
-            if(user is null)
+            if(user is null || user.IsDeleted == true)
             {
                 return new AppResponse<UserLoginResponseDto>
                 {

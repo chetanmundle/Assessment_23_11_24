@@ -4,14 +4,10 @@ using App.Core.App.User.Query;
 using App.Core.Interface;
 using App.Core.Models.User;
 using App.Core.Validations.User;
-using Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Assess_23_10_24_Backend.Controllers
@@ -23,9 +19,9 @@ namespace Assess_23_10_24_Backend.Controllers
         private readonly IMediator _mediator;
         private readonly IUserRepository _userRepos;
 
-        public UserController(IMediator mediator,IUserRepository userRepos)
+        public UserController(IMediator mediator, IUserRepository userRepos)
         {
-            _mediator = mediator;   
+            _mediator = mediator;
             _userRepos = userRepos;
         }
 
@@ -37,7 +33,7 @@ namespace Assess_23_10_24_Backend.Controllers
 
             var validate = validator.Validate(user);
 
-            if(!validate.IsValid)
+            if (!validate.IsValid)
             {
                 var errorMessage = validate.Errors[0].ErrorMessage;
                 return BadRequest(new AppResponse<UserDto>
@@ -91,7 +87,7 @@ namespace Assess_23_10_24_Backend.Controllers
             };
 
             return Ok(appResponse);
-          
+
         }
 
         // Api for Delete on Employee
@@ -99,7 +95,7 @@ namespace Assess_23_10_24_Backend.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> DeleteUserById(int userId)
         {
-           var isDelete = await _userRepos.DeleteUserByIdAsync(userId);
+            var isDelete = await _userRepos.DeleteUserByIdAsync(userId);
             if (isDelete) return Ok(new AppResponse
             {
                 IsSuccess = true,
@@ -144,7 +140,7 @@ namespace Assess_23_10_24_Backend.Controllers
         {
             var user = await _userRepos.GetUserByIdAsync(userId);
 
-            if(user is null) return new AppResponse<UserWithoutPassDto>()
+            if (user is null) return new AppResponse<UserWithoutPassDto>()
             {
                 IsSuccess = false,
                 Message = "User Not Found",
