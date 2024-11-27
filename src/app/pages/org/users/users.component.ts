@@ -30,6 +30,7 @@ export class UsersComponent implements OnDestroy, OnInit {
   searchWord: string = '';
 
   private tostr = inject(MyToastServiceService);
+  
 
   constructor(
     private userService: UserService,
@@ -69,7 +70,7 @@ export class UsersComponent implements OnDestroy, OnInit {
 
   // get all users
   getAllUsers(searchWord: string) {
-    const sub = this.userService.getAllUsers$(this.searchWord).subscribe({
+    const sub = this.userService.getAllUsers$(searchWord).subscribe({
       next: (res: AppResponse<UserWithoutPassDto[]>) => {
         this.userList = res.data;
         console.log(this.userList);
@@ -148,6 +149,7 @@ export class UsersComponent implements OnDestroy, OnInit {
 
   // Fuction for on Change Search Word
   onChangeSearchWordInput() {
+    // this method set the subject of and our component already subscribe the subject
     this.userService.searchSubject$.next(this.searchWord);
   }
 

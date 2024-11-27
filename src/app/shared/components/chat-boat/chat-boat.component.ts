@@ -46,6 +46,7 @@ export class ChatBoatComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // Initialize chat with db(SignalR)
     this.hubConnection = new signalR.HubConnectionBuilder()
       .withUrl('https://localhost:7035/chatHub')
       .build();

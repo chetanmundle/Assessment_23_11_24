@@ -17,6 +17,7 @@ export class UserService {
 
   private Url = 'https://localhost:7035/api/User';
 
+  //   Subject for Search Option
   searchSubject$: Subject<string> = new Subject<string>();
 
   // Service for register / create user
@@ -38,6 +39,8 @@ export class UserService {
   getAllUsers$(
     searchWord: string
   ): Observable<AppResponse<UserWithoutPassDto[]>> {
+    console.log('Api Call ');
+
     return this.http.get<AppResponse<UserWithoutPassDto[]>>(
       `${this.Url}/GetAllUser/${searchWord}`
     );
